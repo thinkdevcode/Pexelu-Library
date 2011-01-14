@@ -1,10 +1,10 @@
 ﻿/// <reference path="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.4-vsdoc.js" />
 
 // Pexelu Library (PexLib)
-// Version: 0.1, Last updated: 1/13/2011
+// Version: 0.1.2, Last updated: 1/13/2011
 // 
 // Project Home - http://www.pexelu.com/lib
-// GitHub       - https://github.com/thinkdevcode/PexLib
+// GitHub       - https://github.com/thinkdevcode/Pexelu-Library
 // Contact      - gin4lyfe@gmail.com
 // 
 // See License.txt for full license
@@ -14,13 +14,13 @@
 
 (function ($, window, undefined) {
 
-    var pex = pex || {}; // main namespace
+    var pex = pex || {};    // main namespace
 
-    pex.ui = pex.ui || {};   // user interface namespace
+    pex.ui = pex.ui || {};       // user interface namespace
     pex.data = pex.data || {};   // data namespace
-    pex.log = pex.log || {};   // logging namespace
+    pex.log = pex.log || {};     // logging namespace
 
-    window.$$ = window.$$ || pex;      // provide a shortcut to pex namespace
+    window.$$ = window.$$ || pex;        // provide a shortcut to pex namespace
     window.$$$ = window.$$$ || pex.ui;   // provide a shortcut ui namespace
 
     var that = this;    // get to private variables
@@ -79,6 +79,12 @@
             $(that.modalBG).fadeIn(pex.ui.modalSpeed);
             $(box).fadeIn(pex.ui.modalSpeed);
             that.currModal = box;
+
+            //this might not work in IE6/7/8 - unless you use a jQuery resize plugin
+            //Get it at: http://benalman.com/projects/jquery-resize-plugin/
+            $(window).resize(function () {
+                pex.ui.centerModal(box);
+            });
         }
     };
 
@@ -125,8 +131,7 @@
                               + ctrl.height
                               + offset.top,
                        'left':  ctrl.left
-                              + offset.left
-            });
+                              + offset.left });
         }
         pex.ui.panelSpeed = pex.ui.panelSpeed || "slow";
         if (typeof obj === 'object' && typeof obj.control === 'object' && typeof obj.panel === 'object') {
@@ -134,9 +139,8 @@
             obj.panel.css(that.cssPanel);
 
             updatePosition(obj.panel, { top: obj.control.offset().top,
-                left: obj.control.offset().left,
-                height: obj.control.height()
-            }, obj.offset);
+                                       left: obj.control.offset().left,
+                                     height: obj.control.height() }, obj.offset);
 
             if (typeof obj.click === 'boolean' && obj.click) {
                 obj.control.bind('click', { panel: obj.panel, offset: obj.offset }, function (event) {

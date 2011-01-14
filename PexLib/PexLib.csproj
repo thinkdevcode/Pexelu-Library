@@ -51,7 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="jquery-1.4.4.min.js" />
+    <Content Include="PexLib\License.txt" />
     <Content Include="PexLib\pex.js" />
+    <Content Include="PexLib\pex.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
