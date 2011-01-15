@@ -5,23 +5,21 @@
 <head id="Head1" runat="server">
     <title>Pexelu Library</title>
     <style type="text/css">
-        .testPanel
-        {
+        .testPanel {
             background-color: Black;
             color: White;
             width: 200px;
             height: 70px;
             padding: 10px;
         }
-        .testModal
-        {
+        .testModal {
             height: 400px;
             width: 400px;
             padding: 40px;
         }
     </style>
     <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
-    <script src="PexLib/pex.min.js" type="text/javascript"></script>
+    <script src="PexLib/pex.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript">
         $(function () {
 
@@ -45,8 +43,10 @@
         <h2>
             Pexelu Library</h2>
         <p>
-            Version: 0.1, Last updated: 1/13/2011
-            </p><br />
+            Current Version: 0.1.2, Last updated: 1/13/2011
+        </p>
+        <p>Next Version (0.1.3): New Feature - A development logging system</p>
+        <br />
         <p>
             Project Home - http://www.pexelu.com/lib
         </p>
@@ -55,7 +55,8 @@
         </p>
         <p>
             Contact - gin4lyfe@gmail.com
-        </p><br />
+        </p>
+        <br />
         <p>
             See <a href="PexLib/License.txt">License.txt</a> for full license
         </p>
@@ -66,34 +67,28 @@
             Licensed under the MIT license.
         </p>
         <br />
-        <h3>Demo</h3>
-
+        <h3>
+            Demo</h3>
         <input id="OpenPanel1Button" type="button" value="Open Panel 1" />
         <input id="OpenPanel2Button" type="button" value="Open Panel 2" onclick="$$$.togglePanel('#Panel2');" />
         <input id="OpenModalButton" type="button" value="Open Modal" />
     </div>
-
     <!-- Panels -->
-
     <div id="Panel1" class="testPanel">
         This is the first panel. it has a top offset of 5 and left offset of 0
     </div>
-
     <div id="Panel2" class="testPanel">
         This is another panel. it has a top offset of 5 and left offset of 20
     </div>
-
     <!-- Modals -->
-
-    <div id="ModalBg"></div>
-
+    <div id="ModalBg">
+    </div>
     <div id="Modal1" class="testModal">
         This is a Modal. When you call closeModal() it knows to close the active modal -
         because it keeps its state in memory.
         <br />
         <input id="ClosePanelButton" type="button" value="Close Modal" />
     </div>
-
     </form>
 </body>
 </html>

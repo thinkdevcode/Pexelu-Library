@@ -24,6 +24,7 @@
     window.$$$ = window.$$$ || pex.ui;   // provide a shortcut ui namespace
 
     var that = this;    // get to private variables
+    var document = window.document;
 
     // You may change these to a number or use "slow"/"fast"
     pex.ui.modalSpeed = undefined;
@@ -127,11 +128,12 @@
     pex.ui.prepPanel = function (obj) {
         //set the panels position below the control
         function updatePosition(panel, ctrl, offset) {
-            panel.css({ 'top':  ctrl.top
+            panel.css({ 'top': ctrl.top
                               + ctrl.height
                               + offset.top,
-                       'left':  ctrl.left
-                              + offset.left });
+                'left': ctrl.left
+                              + offset.left
+            });
         }
         pex.ui.panelSpeed = pex.ui.panelSpeed || "slow";
         if (typeof obj === 'object' && typeof obj.control === 'object' && typeof obj.panel === 'object') {
@@ -139,8 +141,9 @@
             obj.panel.css(that.cssPanel);
 
             updatePosition(obj.panel, { top: obj.control.offset().top,
-                                       left: obj.control.offset().left,
-                                     height: obj.control.height() }, obj.offset);
+                left: obj.control.offset().left,
+                height: obj.control.height()
+            }, obj.offset);
 
             if (typeof obj.click === 'boolean' && obj.click) {
                 obj.control.bind('click', { panel: obj.panel, offset: obj.offset }, function (event) {
@@ -189,7 +192,7 @@
     * Close the current panel - if one exists
     */
     pex.ui.closeCurrentPanel = function () {
-        if (that.currPanel != null) {
+        if (that.currPanel !== null) {
             $(that.currPanel).fadeOut(pex.ui.panelSpeed);
             that.currPanel = null;
         }
@@ -203,8 +206,9 @@
     * @param {css} - the css background-color to change to
     */
     pex.ui.changeTableBg = function (table, color) {
-        var origbg;
-        $(table).find('tr:has(td)').
+        if (typeof table === 'string' && typeof color === 'object') {
+            var origbg;
+            $(table).find('tr:has(td)').
                  mouseover(function () {
                      origbg = $($(this).
                                children('td').
@@ -219,6 +223,7 @@
                        children('td').
                        css('background-color', origbg);
                  });
+        }
     };
 
     pex.log.assignLog = function (container) {
@@ -228,11 +233,13 @@
 
     }
 
-    var document = window.document; // INTERNAL
-    this.currModal = undefined; // INTERNAL : name of currently open modal
-    this.currPanel = undefined; // INTERNAL : the id of the currently open panel
-    this.modalBG = undefined; // INTERNAL : name of div for modal background
-    this.cssModalBox = { // INTERNAL : css style to add to the modal box
+    
+    this.currModal = undefined;     // INTERNAL : name of currently open modal
+    this.currPanel = undefined;     // INTERNAL : the id of the currently open panel
+    this.modalBG = undefined;       // INTERNAL : name of div for modal 
+
+    // INTERNAL : css style to add to the modal box
+    this.cssModalBox = { 
         'background-color': 'white',
         'filter': 'alpha(opacity=100)',
         'opacity': 1.0,
@@ -240,7 +247,9 @@
         'z-index': 3000,
         'position': 'fixed'
     };
-    this.cssModalBG = { // INTERNAL : css style to add to the background DIV
+
+    // INTERNAL : css style to add to the background DIV
+    this.cssModalBG = { 
         'background': 'black',
         'filter': 'alpha(opacity=50)',
         'opacity': 0.5,
@@ -252,10 +261,8 @@
         'z-index': 2000,
         'position': 'fixed'
     };
-    this.cssPanel = { // INTERNAL : css to be used on the panels
-        'z-index': 1000,
-        'position': 'absolute',
-        'display': 'none'
-    };
+
+    // INTERNAL : css to be used on the panels
+    this.cssPanel = { 'z-index': 1000, 'position': 'absolute', 'display': 'none' };
 
 })(jQuery, window);
