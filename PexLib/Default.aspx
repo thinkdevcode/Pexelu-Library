@@ -23,16 +23,16 @@
     <script language="javascript" type="text/javascript">
         $(function () {
 
-            $$$.panelSpeed = 'fast'; // if you dont set the speed it will auto default to slow
-            $$$.modalSpeed = 'fast';
+            $$.ui.setPanelSpeed('fast'); // if you dont set the speed it will auto default to slow
+            $$.ui.setModalSpeed('fast');
 
-            $$$.prepPanel({ control: $('#OpenPanel1Button'), click: true, panel: $('#Panel1'), offset: { top: 5, left: 0} })
-               .prepPanel({ control: $('#OpenPanel2Button'), panel: $('#Panel2'), offset: { top: 5, left: 20} });
+            $$.ui.prepPanel({ control: $('#OpenPanel1Button'), click: true, panel: $('#Panel1'), offset: { top: 5, left: 0} })
+                .prepPanel({ control: $('#OpenPanel2Button'), panel: $('#Panel2'), offset: { top: 5, left: 20} });
 
-            $$$.prepModal('#ModalBg', '#Modal1');
+            $$.ui.prepModal('#ModalBg', '#Modal1');
 
-            $('#OpenModalButton').click(function () { $$$.showModal('#Modal1'); });
-            $('#ClosePanelButton').click(function () { $$$.closeModal(); });
+            $('#OpenModalButton').click(function () { $$.ui.showModal('#Modal1'); });
+            $('#ClosePanelButton').click(function () { $$.ui.closeModal(); });
 
         });
     </script>
@@ -43,9 +43,8 @@
         <h2>
             Pexelu Library</h2>
         <p>
-            Current Version: 0.1.2, Last updated: 1/13/2011
+            Current Version: 0.1.3, Last updated: 1/26/2011
         </p>
-        <p>Next Version (0.1.3): New Feature - A development logging system</p>
         <br />
         <p>
             Project Home - http://www.pexelu.com/lib
@@ -54,14 +53,14 @@
             GitHub - https://github.com/thinkdevcode/Pexelu-Library
         </p>
         <p>
-            Contact - gin4lyfe@gmail.com
+            Contact - Eugene Alfonso (gin4lyfe@gmail.com)
         </p>
         <br />
         <p>
             See <a href="PexLib/License.txt">License.txt</a> for full license
         </p>
         <p>
-            Copyright (c) 2010 Eugene Alfonso,
+            Copyright (c) 2011 Eugene Alfonso,
         </p>
         <p>
             Licensed under the MIT license.
@@ -70,7 +69,7 @@
         <h3>
             Demo</h3>
         <input id="OpenPanel1Button" type="button" value="Open Panel 1" />
-        <input id="OpenPanel2Button" type="button" value="Open Panel 2" onclick="$$$.togglePanel('#Panel2');" />
+        <input id="OpenPanel2Button" type="button" value="Open Panel 2" onclick="$$.ui.togglePanel('#Panel2');" />
         <input id="OpenModalButton" type="button" value="Open Modal" />
     </div>
     <!-- Panels -->
