@@ -43,7 +43,7 @@
         <h2>
             Pexelu Library</h2>
         <p>
-            Current Version: 0.1.3, Last updated: 1/26/2011
+            Current Version: 0.1.4, Last updated: 1/26/2011
         </p>
         <br />
         <p>

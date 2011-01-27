@@ -1,7 +1,7 @@
 ﻿/// <reference path="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.4-vsdoc.js" />
 
 // Pexelu Library (PexLib)
-// Version: 0.1.3, Last updated: 1/26/2011
+// Version: 0.1.4, Last updated: 1/26/2011
 // 
 // Project Home - http://www.pexelu.com/lib
 // GitHub       - https://github.com/thinkdevcode/Pexelu-Library
@@ -19,8 +19,8 @@
         //our interface
         var that = {},
 
-        //Our lovely library version
-        version = "0.1.3",
+        //our lovely library version
+        version = "0.1.4",
 
         //our function extension
         fn = fn || {},
@@ -36,6 +36,7 @@
         //make it accessible to extension functions
         fn.getLibVersion = getLibVersion();
 
+        //make fn global
         that.fn = fn;
 
         return (window.pex = window.$$ = that.fn);
@@ -51,26 +52,25 @@
             return {
 
                 /*
-                * This function is used by ASP.NET for registering callback functions on
-                * AJAX request. Disregard if you dont plan on using ASP.NET AJAX methods.
-                *
-                * @param {function} start - a callback for beginning ajax requests
-                * @param {function} stop - a callback for ending ajax requests
-                */
+                  * This function is used by ASP.NET for registering callback functions on
+                  * AJAX request. Disregard if you dont plan on using ASP.NET AJAX methods.
+                  *
+                  * @param {function} start - a callback for beginning ajax requests
+                  * @param {function} stop - a callback for ending ajax requests
+                  */
                 registerAjaxEvents: function(start, stop) {
                     if (typeof start === 'function' && typeof stop === 'function' && Sys) {
                         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(start);
                         Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(stop);
                     }
-                    return pex.ui;
+                    return pex.data;
                 }
 
+            }; //end of return
 
-            };
+        })(); //end of pex.data
 
-        })();
-
-    })();
+    })(); //end of data library
 
 
     //user interface library extension
@@ -141,10 +141,10 @@
             return {
 
                 /*
-                * Set the speed of opening the modals
-                *
-                * @param {string||number} speed - the speed (can be 'fast', 'slow' or a number in milliseconds)
-                */
+                  * Set the speed of opening the modals
+                  *
+                  * @param {string||number} speed - the speed (can be 'fast', 'slow' or a number in milliseconds)
+                  */
                 setModalSpeed: function(speed) {
                     if (typeof speed === 'string' || typeof speed === 'number') {
                         modalSpeed = speed;
@@ -153,10 +153,10 @@
                 },
 
                 /*
-                * Set the speed of opening the panels
-                *
-                * @param {string||number} speed - the speed (can be 'fast', 'slow' or a number in milliseconds)
-                */
+                  * Set the speed of opening the panels
+                  *
+                  * @param {string||number} speed - the speed (can be 'fast', 'slow' or a number in milliseconds)
+                  */
                 setPanelSpeed: function(speed) {
                     if (typeof speed === 'string' || typeof speed === 'number') {
                         panelSpeed = speed;
@@ -165,12 +165,12 @@
                 },
 
                 /*
-                * Preps the DIV that will be used as the modal background. Also preps
-                * the DIVs to be used as modals. Use this function before using any modals.
-                *
-                * @param {string} bg - The DIV ID of the modal background to be used
-                * @param {string-array} - The DIV ID's of the modal boxes to be used
-                */
+                  * Preps the DIV that will be used as the modal background. Also preps
+                  * the DIVs to be used as modals. Use this function before using any modals.
+                  *
+                  * @param {string} bg - The DIV ID of the modal background to be used
+                  * @param {string-array} - The DIV ID's of the modal boxes to be used
+                  */
                 prepModal: function(bg) {
                     var index, modalCount;
                     if (typeof bg === 'string') {
@@ -190,10 +190,10 @@
                 },
 
                 /*
-                * Display a modal by DIV ID. Use prepModal() before using this.
-                *
-                * @param {string} box - The DIV ID of the modal to show
-                */
+                  * Display a modal by DIV ID. Use prepModal() before using this.
+                  *
+                  * @param {string} box - The DIV ID of the modal to show
+                  */
                 showModal: function(box) {
                     if (box !== undefined && typeof box === 'string' && modalSpeed !== undefined) {
                         centerModal(box);
@@ -210,9 +210,9 @@
                     return pex.ui;
                 },
 
-              /*
-                * Closes the currently open modal as well as the background DIV.
-                */
+                /*
+                  * Closes the currently open modal as well as the background DIV.
+                  */
                 closeModal: function () {
                     if (modalBG !== undefined && currModal !== undefined && modalSpeed !== undefined) {
                         $(modalBG).fadeOut(modalSpeed);
@@ -221,15 +221,15 @@
                 },
 
                 /*
-                * Preps the DIVs that will be used as the panels based off of their
-                * parent controls. Use this function at page load before toggling a panel.
-                *
-                * @param {control, panel, map{offset}} - The jQuery object of the control and the panel
-                */
+                  * Preps the DIVs that will be used as the panels based off of their
+                  * parent controls. Use this function at page load before toggling a panel.
+                  *
+                  * @param {control, panel, map{offset}} - The jQuery object of the control and the panel
+                  */
                 prepPanel: function(obj) {
 
                     //set the panels position below the control
-                    function updatePosition(panel, ctrl, offset) {
+                    var updatePosition = function(panel, ctrl, offset) {
                         panel.css({ 'top': ctrl.top + ctrl.height + offset.top,
                             'left': ctrl.left + offset.left
                         });
@@ -261,11 +261,11 @@
                 },
 
                 /*
-                * Toggles the display of the panel. This also sets focus to the first
-                * textbox in DIV (if one exists).
-                *
-                * @param {string} panel - The DIV ID of panel to toggle
-                */
+                  * Toggles the display of the panel. This also sets focus to the first
+                  * textbox in DIV (if one exists).
+                  *
+                  * @param {string} panel - The DIV ID of panel to toggle
+                  */
                 togglePanel: function(panel) {
                     if (panel !== undefined && typeof panel === 'string') {
                         if (currPanel !== undefined && currPanel !== panel) {
@@ -288,8 +288,8 @@
                 },
 
                 /*
-                * Close the currently open panel - if one exists
-                */
+                  * Close the currently open panel - if one exists
+                  */
                 closeCurrentPanel: function() {
                     if (currPanel !== null) {
                         $(currPanel).fadeOut(panelSpeed);
@@ -298,12 +298,12 @@
                 },
 
                 /*
-                * Changes the background color of a table's TD elements on mouseover
-                * and returns the color to the original on mouseout
-                *
-                * @param {string} table - the id of the table
-                * @param {css} - the css background-color to change to
-                */
+                  * Changes the background color of a table's TD elements on mouseover
+                  * and returns the color to the original on mouseout
+                  *
+                  * @param {string} table - the id of the table
+                  * @param {css} - the css background-color to change to
+                  */
                 changeTableBg: function(table, color) {
                     if (typeof table === 'string' && typeof color === 'object') {
                         var origbg;
@@ -326,12 +326,11 @@
                     return pex.ui;
                 }
 
+            }; //end of return
 
-            };
+        })(); //end of pex.ui
 
-        })();
-
-    })();
+    })(); //end of ui library
 
 
 })(jQuery, window);
